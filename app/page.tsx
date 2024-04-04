@@ -3,8 +3,6 @@ import { Navbar } from "@/components/shared/navbar";
 import { DropzoneAndConverter } from "./_components/dropzone";
 import { Suspense } from "react";
 
-export const runtime = "edge";
-
 export default function Home() {
 	return (
 		<main className="bg-black text-white min-h-screen h-0 flex-col flex">
