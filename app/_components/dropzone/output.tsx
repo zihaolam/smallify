@@ -27,7 +27,7 @@ export const Output: React.FC<OutputProps> = ({ output }) => {
 	return output.length ? (
 		<div className="mt-4">
 			<div>Output:</div>
-			<div className="w-[600px] flex justify-start items-center border border-gray-700 rounded-md p-1 gap-x-1">
+			<div className="w-[600px] flex flex-wrap justify-start items-center border border-gray-700 rounded-md p-1 gap-x-1">
 				{output.map((f, i) => (
 					<div key={i}>
 						<div className="relative mb-2 group cursor-pointer" onClick={() => downloadFile(f.outputFile)}>
