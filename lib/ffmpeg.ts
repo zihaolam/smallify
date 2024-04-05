@@ -30,7 +30,7 @@ export class FFmpegService {
 		const tmpUrl = URL.createObjectURL(file);
 		await this.ffmpeg.writeFile(file.name, await fetchFile(tmpUrl));
 		const outputFileName = nanoid() + ".webp";
-		await this.ffmpeg.exec(["-i", file.name, outputFileName]);
+		await this.ffmpeg.exec(["-i", file.name, "-compression_level", "6", outputFileName]);
 
 		const data = await this.ffmpeg.readFile(outputFileName);
 		const outputFile = new File([data], outputFileName, { type: "image/webp" });
