@@ -50,6 +50,7 @@ export const DropzoneAndConverter = () => {
 
 	const handleDrop = React.useCallback(
 		(e: React.DragEvent<HTMLDivElement>) => {
+			e.preventDefault();
 			const files = e.dataTransfer?.files;
 			if (!files?.length) return;
 			return convert(files);
@@ -62,6 +63,7 @@ export const DropzoneAndConverter = () => {
 			<div
 				className="w-[600px] h-[300px] border-dashed text-gray-400 font-medium border-gray-700 rounded-xl border-2 flex items-center justify-center cursor-pointer relative"
 				onDragOver={(e) => e.preventDefault()}
+				onDragEnd={(e) => e.preventDefault()}
 				onDrop={handleDrop}
 				onClick={() => inputRef.current?.click()}
 			>
