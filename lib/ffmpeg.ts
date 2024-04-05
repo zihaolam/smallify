@@ -34,6 +34,8 @@ export class FFmpegService {
 
 		const data = await this.ffmpeg.readFile(outputFileName);
 		const outputFile = new File([data], outputFileName, { type: "image/webp" });
+		await this.ffmpeg.deleteFile(outputFileName);
+		await this.ffmpeg.deleteFile(file.name);
 		URL.revokeObjectURL(tmpUrl);
 		return {
 			src: await fileToBase64(outputFile),

@@ -23,13 +23,17 @@ export const DropzoneAndConverter = () => {
 		if (fileLength === 0) return;
 		if (!ffmpegInstance) return;
 		setNFilesProcessing((prev) => prev + fileLength);
-		const res = await promisePool(Array.from(fileList), (file) => ffmpegInstance.convertToWebp(file), 3).finally(() =>
-			setNFilesProcessing((prev) => {
-				console.log("setting prev to deducted", prev - fileLength);
-				return prev - fileLength;
-			})
+		await promisePool(
+			Array.from(fileList),
+			(file) =>
+				ffmpegInstance
+					.convertToWebp(file)
+					.then((res) => setOutput((prev) => [...prev, res]))
+					.finally(() => {
+						setNFilesProcessing((prev) => prev - 1);
+					}),
+			3
 		);
-		return setOutput((prev) => [...prev, ...res]);
 	}, []);
 
 	const handleChange = React.useCallback(
@@ -54,7 +58,7 @@ export const DropzoneAndConverter = () => {
 	);
 
 	return (
-		<>
+		<div className="flex flex-col items-center">
 			<div
 				className="w-[600px] h-[300px] border-dashed text-gray-400 font-medium border-gray-700 rounded-xl border-2 flex items-center justify-center cursor-pointer relative"
 				onDragOver={(e) => e.preventDefault()}
@@ -71,6 +75,6 @@ export const DropzoneAndConverter = () => {
 				<input accept="image/*" multiple ref={inputRef} onChange={handleChange} type="file" className="hidden" />
 			</div>
 			<Output output={output} />
-		</>
+		</div>
 	);
 };
