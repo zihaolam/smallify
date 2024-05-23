@@ -79,15 +79,27 @@ export const DropzoneAndConverter = () => {
 				<div>Drop your png/jpeg file or click to upload</div>
 				<input accept="image/*" multiple ref={inputRef} onChange={handleChange} type="file" className="hidden" />
 			</div>
-			<div className="flex gap-x-4 mt-4 justify-start w-full">
-				<Input type="number" value={width} placeholder="Width" className="bg-gray-700" onChange={(e) => setWidth(parseInt(e.target.value))} />
-				<Input
-					type="number"
-					value={height}
-					placeholder="Height"
-					className="bg-gray-700"
-					onChange={(e) => setHeight(parseInt(e.target.value))}
-				/>
+			<div className="flex gap-4 mt-4 justify-start w-[600px] flex-col">
+				<div>
+					<div className="mb-1">Image Width: </div>
+					<Input
+						type="number"
+						value={width}
+						placeholder="Width"
+						className="bg-gray-700"
+						onChange={(e) => setWidth(parseInt(e.target.value))}
+					/>
+				</div>
+				<div>
+					<div className="mb-1">Image Height: </div>
+					<Input
+						type="number"
+						value={height}
+						placeholder="Height"
+						className="bg-gray-700"
+						onChange={(e) => setHeight(parseInt(e.target.value))}
+					/>
+				</div>
 			</div>
 			<Output output={output} />
 		</div>
