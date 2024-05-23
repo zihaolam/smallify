@@ -80,8 +80,14 @@ export const DropzoneAndConverter = () => {
 				<input accept="image/*" multiple ref={inputRef} onChange={handleChange} type="file" className="hidden" />
 			</div>
 			<div className="flex gap-x-4 mt-4 justify-start w-full">
-				<Input type="number" value={width} placeholder="Width" onChange={(e) => setWidth(parseInt(e.target.value))} />
-				<Input type="number" value={height} placeholder="Height" onChange={(e) => setHeight(parseInt(e.target.value))} />
+				<Input type="number" value={width} placeholder="Width" className="bg-gray-700" onChange={(e) => setWidth(parseInt(e.target.value))} />
+				<Input
+					type="number"
+					value={height}
+					placeholder="Height"
+					className="bg-gray-700"
+					onChange={(e) => setHeight(parseInt(e.target.value))}
+				/>
 			</div>
 			<Output output={output} />
 		</div>
