@@ -5,6 +5,7 @@ import { promisePool } from "@/lib/promise-pool";
 import React from "react";
 import { ImSpinner9 } from "react-icons/im";
 import { Output } from "./output";
+import { Input } from "../../../components/ui/input";
 
 export const DropzoneAndConverter = () => {
 	const ffmpeg = React.useRef<FFmpegService>();
@@ -78,19 +79,9 @@ export const DropzoneAndConverter = () => {
 				<div>Drop your png/jpeg file or click to upload</div>
 				<input accept="image/*" multiple ref={inputRef} onChange={handleChange} type="file" className="hidden" />
 			</div>
-			<div className="flex gap-x-4 mt-4">
-				<input
-					type="number"
-					value={width}
-					onChange={(e) => setWidth(parseInt(e.target.value))}
-					className="border-2 border-gray-700 outline-none rounded-md px-2 py-1"
-				/>
-				<input
-					type="number"
-					value={height}
-					onChange={(e) => setHeight(parseInt(e.target.value))}
-					className="border-2 border-gray-700 outline-none rounded-md px-2 py-1"
-				/>
+			<div className="flex gap-x-4 mt-4 justify-start w-full">
+				<Input type="number" value={width} placeholder="Width" onChange={(e) => setWidth(parseInt(e.target.value))} />
+				<Input type="number" value={height} placeholder="Height" onChange={(e) => setHeight(parseInt(e.target.value))} />
 			</div>
 			<Output output={output} />
 		</div>
