@@ -90,7 +90,7 @@ export const DropzoneAndConverter = () => {
 						onChange={(e) => setWidth(parseInt(e.target.value))}
 					/>
 				</div>
-				<div>
+				{/* <div>
 					<div className="mb-1">Image Height: </div>
 					<Input
 						type="number"
@@ -99,7 +99,7 @@ export const DropzoneAndConverter = () => {
 						className="bg-gray-700"
 						onChange={(e) => setHeight(parseInt(e.target.value))}
 					/>
-				</div>
+				</div> */}
 			</div>
 			<Output output={output} />
 		</div>
