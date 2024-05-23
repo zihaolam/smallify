@@ -25,12 +25,12 @@ export class FFmpegService {
 		});
 	};
 
-	convertToWebp = async (file: File): Promise<FileConversionOutput> => {
+	convertToWebp = async (file: File, width: number = 1500, height: number = 843.75): Promise<FileConversionOutput> => {
 		await this.load();
 		const tmpUrl = URL.createObjectURL(file);
 		await this.ffmpeg.writeFile(file.name, await fetchFile(tmpUrl));
 		const outputFileName = nanoid() + ".webp";
-		await this.ffmpeg.exec(["-i", file.name, "-compression_level", "6", outputFileName]);
+		await this.ffmpeg.exec(["-i", file.name, "-compression_level", "6", "-vf", `${width}:${height}`, outputFileName]);
 
 		const data = await this.ffmpeg.readFile(outputFileName);
 		const outputFile = new File([data], outputFileName, { type: "image/webp" });

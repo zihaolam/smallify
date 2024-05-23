@@ -11,13 +11,15 @@ export const DropzoneAndConverter = () => {
 	const inputRef = React.useRef<HTMLInputElement>(null);
 	const [output, setOutput] = React.useState<FileConversionOutput[]>([]);
 	const [nFilesProcessing, setNFilesProcessing] = React.useState<number>(0);
+	const [width, setWidth] = React.useState(1500);
+	const [height, setHeight] = React.useState(843.75);
 
 	React.useEffect(() => {
 		ffmpeg.current = new FFmpegService();
 		ffmpeg.current.load();
 	}, [ffmpeg]);
 
-	const convert = React.useCallback(async (fileList: FileList) => {
+	const convert = React.useCallback(async (fileList: FileList, width: number, height: number) => {
 		const ffmpegInstance = ffmpeg.current;
 		const fileLength = fileList.length;
 		if (fileLength === 0) return;
@@ -40,12 +42,12 @@ export const DropzoneAndConverter = () => {
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			const files = e.target.files;
 			if (!files?.length) return;
-			return convert(files).then((res) => {
+			return convert(files, width, height).then((res) => {
 				e.target.value = "";
 				return res;
 			});
 		},
-		[convert]
+		[convert, width, height]
 	);
 
 	const handleDrop = React.useCallback(
@@ -53,9 +55,9 @@ export const DropzoneAndConverter = () => {
 			e.preventDefault();
 			const files = e.dataTransfer?.files;
 			if (!files?.length) return;
-			return convert(files);
+			return convert(files, width, height);
 		},
-		[convert]
+		[convert, width, height]
 	);
 
 	return (
@@ -75,6 +77,20 @@ export const DropzoneAndConverter = () => {
 				) : null}
 				<div>Drop your png/jpeg file or click to upload</div>
 				<input accept="image/*" multiple ref={inputRef} onChange={handleChange} type="file" className="hidden" />
+			</div>
+			<div className="flex gap-x-4 mt-4">
+				<input
+					type="number"
+					value={width}
+					onChange={(e) => setWidth(parseInt(e.target.value))}
+					className="border-2 border-gray-700 outline-none rounded-md px-2 py-1"
+				/>
+				<input
+					type="number"
+					value={height}
+					onChange={(e) => setHeight(parseInt(e.target.value))}
+					className="border-2 border-gray-700 outline-none rounded-md px-2 py-1"
+				/>
 			</div>
 			<Output output={output} />
 		</div>
